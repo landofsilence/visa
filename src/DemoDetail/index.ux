@@ -48,8 +48,8 @@
       <input type="text" placeholder="请输入手机号码" class="input" value='{{phone}}' style="width:580px" onchange='phoneChanged'></input>
       <input type="button" class="btn" style="width:170px;font-size:32px;" onclick='phoneCheck' value="获取验证"></input>
     </div>
-       <input type="text" placeholder="请输入验证码" class="input phonebox"  style="width:620px;" ></input>
-      <input id='nextstep' type="button" onclick="action" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="disabled"></input>
+       <input type="text" placeholder="请输入验证码" class="input phonebox" onchange='codeChanged' style="width:620px;" ></input>
+      <input id='nextstep' type="button" onclick="nextStep" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="disabled"></input>
       <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
@@ -59,20 +59,39 @@
 <script>
 import router from '@system.router'
 import fetch from '@system.fetch'
-
+import prompt from '@system.prompt'
 export default {
   private: {
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
     action:'',
-    phone: ''
+    phone: '',
+    phonecode: '',
+    code: '0123'
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
    * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
    */
+  codeChanged(e) {
+    this.phonecode = e.text
+  },
   phoneChanged(e) {
     this.phone = e.text
+  },
+  nextStep() {
+    console.log('this.code ==== ' + this.code)
+    console.log('this.phonecode ==== ' + this.phonecode)
+    if(this.phonecode == this.code){
+      router.replace({
+        uri: '/step2',
+        params:{cookie:'cookie值，这里请服务器返回给我'}
+      })
+    } else {
+      prompt.showToast({
+        message: '验证码错误'
+      })
+    }
   },
   phoneCheck(){
     const self = this
@@ -86,6 +105,7 @@ export default {
         if (ret.code === 200) {
           console.log('ret.data\n' + ret.data)
           console.log('ret.data.code\n' + ret.data.code)
+          self.code = ret.data.code
         }
       }
     })
