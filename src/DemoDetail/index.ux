@@ -94,7 +94,7 @@ export default {
   },
 
   onInit() {
-    this.action = this.fresh
+    this.action = this.clicknext
   },
 }
 
