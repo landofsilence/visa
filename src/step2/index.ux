@@ -30,7 +30,7 @@
     <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
 
     <text style="margin-top:60px;width:620px">请拍照上传您的身份证正面照片，以核验您的个人信息</text>
-    <image src="/Common/identity.jpg" class="imagebox"></image>
+    <image src="{{img}}" class="imagebox" onclick='takePhoto'></image>
     <image src="/Common/identitydescrip.jpg" class="imagebox"></image>
     <div id="data" class="{{boxtype}}">
     <div class="descripbox" style="margin-top:10px;">
@@ -58,7 +58,7 @@
     <text class="tiptext mydes">身份验证通过，点击进入下一步</text>
   </div>
     </div>
-<input id='nextstep' type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="disabled"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+<input id='nextstep' type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -67,8 +67,14 @@
 <script>
 import router from '@system.router'
 
+import media from '@system.media'
+import request from '@system.request'
+import fetch from '@system.fetch'
+import image from '@system.image'
+import prompt from '@system.prompt'
 export default {
   private: {
+    img: '/Common/identity.jpg',
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
     boxtype:"unseedesbox",
@@ -76,13 +82,95 @@ export default {
     IDcard:'45092119990501165*',
     sex:'男',
     address:'广西玉林',
-    birthday:'19990501'
+    birthday:'19990501',
+    disabled: 'true',
+    filename: ''
 
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
    * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
    */
+  takePhoto() {
+    console.log('takePhoto')
+    const self = this
+
+    media.takePhoto({
+      success: function(data) {
+        var img_uri = data.uri
+        image.compressImage({
+          uri: img_uri,
+          success: function (data) {
+            img_uri = data.uri
+            self.filename = Math.random().toString(36).substr(2) + '.jpg'
+            console.log('compressImage ====== ' + data.uri)
+
+            image.getImageInfo({
+              uri: img_uri,
+              success: function (data) {
+                console.log(`img size = ${data.size}`)
+              }
+            })
+
+            request.upload({
+              url: 'http://120.78.141.62:8765/visa/upload',
+              files: [
+                {
+                  uri: img_uri,
+                  filename: self.filename
+                }
+              ],
+              success: function (ret) {
+                self.img = img_uri
+                console.log('upload success')
+                if (ret.code === 200) {
+                  console.log('ret.data = ' + ret.data)
+                  console.log('self.filename = ' + self.filename)
+                  self.fresh()
+                  /*fetch.fetch({
+                    url: 'http://120.78.141.62:8765/visa/img2base64?img=' + self.filename,
+                    method: 'POST',
+                    responseType: 'json',
+                    success: function (ret) {
+                      console.log('self.phone ========= ' + self.filename)
+                      if (ret.data.status == '01') {
+                        self.name = ret.data.name
+                        self.IDcard = ret.data.idCard
+                        self.sex = ret.data.sex
+                        self.address = ret.data.area
+                        self.birthday = ret.data.birthday
+                        self.fresh()
+                        prompt.showToast({
+                          message: ret.data.msg
+                        })
+                      } else {
+                        prompt.showToast({
+                          message: ret.data.msg
+                        })
+                      }
+                    },
+                    fail: function (ret) {
+                        prompt.showToast({
+                          message: '验证失败'
+                        })
+                    }
+                  })*/
+                }
+              },
+              fail: function(data, code) {
+                console.log(`upload fail, code = ${code}`)
+              }
+            })
+          }
+        })
+      },
+      fail: function(data, code) {
+        console.log(`takePhoto fail, code = ${code}`)
+      }
+    })
+
+    
+  },
   onMenuPress() {
     this.$app.$def.showMenu()
   },
@@ -100,6 +188,7 @@ export default {
     this.buttontype = 'btn'
     console.info('yesss')
     this.appear()
+    this.disabled = 'false'
     
     //调用这个函数可以激活下一步事件
   },

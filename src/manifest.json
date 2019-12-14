@@ -17,6 +17,15 @@
     },
     {
       "name": "system.fetch"
+    },
+    {
+      "name": "system.image"
+    },
+    {
+      "name": "system.request"
+    },
+    {
+      "name": "system.media"
     }
   ],
   "permissions": [

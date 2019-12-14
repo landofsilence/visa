@@ -49,7 +49,7 @@
       <input type="button" class="btn" style="width:170px;font-size:32px;" onclick='phoneCheck' value="获取验证"></input>
     </div>
        <input type="text" placeholder="请输入验证码" class="input phonebox" onchange='codeChanged' style="width:620px;" ></input>
-      <input id='nextstep' type="button" onclick="nextStep" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="disabled"></input>
+      <input id='nextstep' type="button" onclick="nextStep" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>
       <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
@@ -67,13 +67,15 @@ export default {
     action:'',
     phone: '',
     phonecode: '',
-    code: '0123'
+    code: '0123',
+    disabled: 'true'
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
    * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
    */
   codeChanged(e) {
+    this.fresh()
     this.phonecode = e.text
   },
   phoneChanged(e) {
@@ -130,7 +132,7 @@ export default {
   fresh(){
     this.buttontype = 'btn'
     console.info('yesss')
-    
+    this.disabled = 'false'
     //调用这个函数可以激活刷新
 
   },
