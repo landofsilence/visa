@@ -14,7 +14,7 @@
       </div>
       <div class="stepclass"> 
         <text class="stepnotn">③</text>
-        <text class="stepnot">银行卡校验</text>
+        <text class="stepnot">流水校验</text>
       </div>
       <div class="stepclass"> 
         <text class="stepnotn">④</text>
@@ -42,13 +42,14 @@
       <text class="content">90天</text>
     </div>
 
-    <text  class="descrip descripbox" >请输入您的手机号码：</text>
+    <text  class="descrip descripbox" >请输入您本人的手机号码，以验证申请：</text>
 
     <div class="phonebox">
       <input type="text" placeholder="请输入手机号码" class="input" value='{{phone}}' style="width:580px" onchange='phoneChanged'></input>
       <input type="button" class="btn" style="width:170px;font-size:32px;" onclick='phoneCheck' value="获取验证"></input>
     </div>
-      <input id='nextstep' type="button" onclick="action" class="{{buttontype}}" style="width:620px;margin-top:60px;" value="下一步" disabled="disabled"></input>
+       <input type="text" placeholder="请输入验证码" class="input phonebox"  style="width:620px;" ></input>
+      <input id='nextstep' type="button" onclick="action" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="disabled"></input>
       <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
@@ -139,7 +140,7 @@ export default {
   .phonebox{
     width: 620px;
     flex-direction: row;
-    height: 60px;
+    height: 80px;
     margin-top: 60px;
     justify-content: space-between;
   }

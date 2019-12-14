@@ -25,6 +25,7 @@
     "hybrid"
   ],
   "rules": {
+    'linebreak-style': [0, 'error', 'windows'],
     "indent": [
       "warn",
       2
