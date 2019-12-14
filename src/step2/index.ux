@@ -3,13 +3,13 @@
   <div class="demo-page">
     <div class="stepbox">
       <div class="stepclass"> 
-        <text class="stepisn">①</text>
-        <text class="stepis">签证选择</text>
+        <text class="stepnotn">①</text>
+        <text class="stepnot">签证选择</text>
         
       </div>
       <div class="stepclass"> 
-        <text class="stepnotn">②</text>
-        <text class="stepnot">身份校验</text>
+        <text class="stepisn">②</text>
+        <text class="stepis">身份校验</text>
         
       </div>
       <div class="stepclass"> 
@@ -48,7 +48,7 @@
       <input type="text" placeholder="请输入手机号码" class="input" style="width:580px" ></input>
       <input type="button" class="btn" style="width:170px;font-size:32px;" value="获取验证"></input>
     </div>
-      <input id='nextstep' type="button" onclick="action" class="{{buttontype}}" style="width:620px;" value="下一步" disabled="disabled"></input>
+      <input id='nextstep' type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;" value="下一步" disabled="disabled"></input>
       <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
@@ -62,14 +62,12 @@ export default {
   private: {
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
-    action:''
+    action: 'fresh'
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
    * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
    */
-  
-
   onMenuPress() {
     this.$app.$def.showMenu()
   },
@@ -83,31 +81,13 @@ export default {
     
   },
 
-  
-
   fresh(){
     this.buttontype = 'btn'
     console.info('yesss')
-    var btn = this.$element('nextstep')
-    btn.value = '你好啊'
-    
-    this.action = function(){
-      console.info('yesss')
-      router.replace({
-        uri: '/step2',
-        params:{cookie:'cookie值，这里请服务器返回给我'}
-      })
-    }
-
-
-    
+    this.$off('nextstep', this.fresh)
+    this.$on('nextstep', this.clicknext)
     //调用这个函数可以激活下一步事件
-
-  },
-
-  onInit() {
-    this.action = this.fresh
-  },
+  }
 }
 
 

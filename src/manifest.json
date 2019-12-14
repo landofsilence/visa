@@ -33,6 +33,9 @@
       "DemoDetail": {
         "component": "index"
       },
+      "step2": {
+        "component": "index"
+      },
       "About": {
         "component": "index"
       }
@@ -57,14 +60,17 @@
     "menu": true,
     "pages": {
       "Demo": {
-        "titleBarText": "示例页",
+        "titleBarText": "走呗签证",
         "menu": false
       },
       "DemoDetail": {
-        "titleBarText": "详情页"
+        "titleBarText": "第一步"
       },
       "About": {
         "menu": false
+      },
+      "step2": {
+        "titleBarText": "第二步"
       }
     }
   }
