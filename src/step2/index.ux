@@ -14,7 +14,7 @@
       </div>
       <div class="stepclass"> 
         <text class="stepnotn">③</text>
-        <text class="stepnot">银行卡校验</text>
+        <text class="stepnot">流水校验</text>
       </div>
       <div class="stepclass"> 
         <text class="stepnotn">④</text>
@@ -29,27 +29,36 @@
 
     <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
 
-    <div class="descripbox" style="margin-top:60px;">
-      <text class="descrip">签证国家：</text>
-      <text class="content">日本</text>
+    <text style="margin-top:60px;width:620px">请拍照上传您的身份证正面照片，以核验您的个人信息</text>
+    <image src="/Common/identity.jpg" class="imagebox"></image>
+    <image src="/Common/identitydescrip.jpg" class="imagebox"></image>
+    <div id="data" class="{{boxtype}}">
+    <div class="descripbox" style="margin-top:10px;">
+      <text class="descrip">姓名：</text>
+      <text class="content">{{name}}</text>
     </div>
-    <div class="descripbox">
-      <text class="descrip">签证停留期：</text>
-      <text class="content">15天</text>
+    <div class="descripbox mydes">
+      <text class="descrip">身份证号：</text>
+      <text class="content">{{IDcard}}</text>
     </div>
-    <div class="descripbox">
-      <text class="descrip">签证有效期：</text>
-      <text class="content">90天</text>
+    <div class="descripbox mydes">
+      <text class="descrip">性别：</text>
+      <text class="content">{{sex}}</text>
     </div>
-
-    <text  class="descrip descripbox" >请输入您的手机号码：</text>
-
-    <div class="phonebox">
-      <input type="text" placeholder="请输入手机号码" class="input" style="width:580px" ></input>
-      <input type="button" class="btn" style="width:170px;font-size:32px;" value="获取验证"></input>
+    <div class="descripbox mydes">
+      <text class="descrip">籍贯:</text>
+      <text class="content">{{address}}</text>
     </div>
-      <input id='nextstep' type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;" value="下一步" disabled="disabled"></input>
-      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+  <div class="descripbox mydes">
+      <text class="descrip">生日:</text>
+      <text class="content">{{birthday}}</text>
+    </div>
+     <div class="tips">
+    <image class="tipimage mydes" src="/Common/yes.png"></image>
+    <text class="tiptext mydes">身份验证通过，点击进入下一步</text>
+  </div>
+    </div>
+<input id='nextstep' type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="disabled"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -62,7 +71,13 @@ export default {
   private: {
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
-    action: 'fresh'
+    boxtype:"unseedesbox",
+    name:'夏与',
+    IDcard:'45092119990501165*',
+    sex:'男',
+    address:'广西玉林',
+    birthday:'19990501'
+
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
@@ -84,9 +99,14 @@ export default {
   fresh(){
     this.buttontype = 'btn'
     console.info('yesss')
-    this.$off('nextstep', this.fresh)
-    this.$on('nextstep', this.clicknext)
+    this.appear()
+    
     //调用这个函数可以激活下一步事件
+  },
+
+  appear(){
+    this.boxtype = "descripbox"
+    //调用这个函数可以显示隐藏的Box
   }
 }
 
@@ -113,6 +133,18 @@ export default {
     height: 60px;
     margin-top: 60px;
     justify-content: space-between;
+  }
+
+  .imagebox{
+    margin-top: 60px;
+  }
+
+  #data{
+    flex-direction: column;
+    justify-content:flex-start;
+  }
+  .mydes{
+    margin-top: 30px;
   }
   
 </style>

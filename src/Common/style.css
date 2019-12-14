@@ -43,6 +43,14 @@
     margin-top: 40px;
   }
 
+  .unseedesbox{
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 620px;
+    margin-top: 40px;
+    display: none;
+  }
+
 
   .input{
     font-size: 32px;
