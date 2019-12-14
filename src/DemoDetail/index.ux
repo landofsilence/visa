@@ -45,8 +45,8 @@
     <text  class="descrip descripbox" >请输入您的手机号码：</text>
 
     <div class="phonebox">
-      <input type="text" placeholder="请输入手机号码" class="input" style="width:580px" ></input>
-      <input type="button" class="btn" style="width:170px;font-size:32px;" value="获取验证"></input>
+      <input type="text" placeholder="请输入手机号码" class="input" value='{{phone}}' style="width:580px" onchange='phoneChanged'></input>
+      <input type="button" class="btn" style="width:170px;font-size:32px;" onclick='phoneCheck' value="获取验证"></input>
     </div>
       <input id='nextstep' type="button" onclick="action" class="{{buttontype}}" style="width:620px;margin-top:60px;" value="下一步" disabled="disabled"></input>
       <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
@@ -57,17 +57,38 @@
 
 <script>
 import router from '@system.router'
+import fetch from '@system.fetch'
 
 export default {
   private: {
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
-    action:''
+    action:'',
+    phone: ''
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
    * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
    */
+  phoneChanged(e) {
+    this.phone = e.text
+  },
+  phoneCheck(){
+    const self = this
+    var url = 'http://120.78.141.62:8765/visa/sendMessage?phone=' + self.phone
+    fetch.fetch({
+      url: url,
+      method: 'POST',
+      responseType: 'json',
+      success: function (ret) {
+        console.log('self.phone ========= ' + self.phone)
+        if (ret.code === 200) {
+          console.log('ret.data\n' + ret.data)
+          console.log('ret.data.code\n' + ret.data.code)
+        }
+      }
+    })
+  },
   
 
   onMenuPress() {
