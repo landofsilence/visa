@@ -111,7 +111,6 @@
   .tips{
     flex-direction: row;
     align-items: center;
-    justify-items: center;
     margin-top: 32px;
     width:620px;
   }

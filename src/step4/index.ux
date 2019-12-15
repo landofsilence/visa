@@ -32,44 +32,50 @@
     <text style="margin-top:60px;width:620px">请选择您的职业并提交相应的辅助材料：</text>
     <div class="leftrightbox">
       <input  type="radio" checked="{{checked1}}" onchange="showtype(1)" class=" myradio" value="" />
-      <text class="Iam" onclick="showtype(1)">我是企业法人</text>
+      <text class="Iam" onclick="showtype(1)">我是在职人员</text>
       </div>
 
     <div class="centerbox data {{box1}}"  id="box1" style="margin-top:0px;" >
      <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
-     <text style="margin-top:60px;width:620px">请您上传名下企业的有效营业执照：</text>
+     <text style="margin-top:60px;width:620px">请您上传所在单位的有效营业执照正面照片：</text>
     <image src="{{image}}"  onclick='takePhoto' class="imagebox" ></image>
     <div class="{{warnboxtype}} data">
     <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">申请人为企业性质的公司法人时，需要提供有经营范围的营业执照。</text>
+    <text class="tiptext2line mydes">申请人为在职人员时，需要提供单位在职证明及营业执照复印件。</text>
   </div>
    <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">营业执照和组织机构代码证均为清晰的复印件并加盖公司公章。</text>
+    <text class="tiptext2line mydes lineheight">营业执照复印件必须与您户口簿上的工作单位一致。</text>
   </div>
   <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">营业执照或组织机构代码证上必须有近一年内的年检章申请人为企业性质的公司。</text>
+    <text class="tiptext2line mydes lineheight">如果您是公司注册人员，可以直接验证通过，否则请您在邮寄时提供加盖公章的在职证明。</text>
   </div>
     </div>
 
   <div id="data" class="{{databoxtype}} data">
     <div class="descripbox" style="margin-top:10px;">
-      <text class="descrip">姓名：</text>
-      <text class="content">{{name}}</text>
+      <text class="descrip">企业名：</text>
+      <text class="content">{{companyName}}</text>
     </div>
     <div class="descripbox mydes">
-      <text class="descrip">身份证号：</text>
-      <text class="content">{{IDcard}}</text>
+      <text class="descrip">企业法人：</text>
+      <text class="content">{{faRen}}</text>
     </div>
-    <div class="descripbox mydes">
-      <text class="descrip">银行卡号：</text>
-      <text class="content">{{credit}}</text>
+    <div class="descripbox columnbox">
+      <text class="descrip columnbox">注册人员：</text>
+      <div class="content columnbox"  for="{{memberList}}">
+        <text>{{$item.memberName}}({{$item.position}})</text>
+      </div>
     </div>
-    <div class="tips">
+    <div class="tips {{tipyes}}">
     <image class="tipimage mydes" src="/Common/yes.png"></image>
-    <text class="tiptext mydes">银行卡与身份证匹配，点击进入下一步</text>
+    <text class="tiptext mydes lineheight">您是企业注册人员，无需提供在职证明，点击进入下一步</text>
+  </div>
+  <div class="tips {{tipno}}">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext mydes lineheight">您不是企业注册人员，请准备好在职证明，点击进入下一步</text>
   </div>
     </div>
   <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
@@ -77,24 +83,20 @@
 
     <div class="leftrightbox">
       <input  type="radio" checked="{{checked2}}" onchange="showtype(2)" class=" myradio" value="" />
-      <text class="Iam" onclick="showtype(2)">我是在职人员</text>
+      <text class="Iam" onclick="showtype(2)">我是自由职业者</text>
       </div>
 
     <div class="centerbox data {{box2}}"  id="box2" style="margin-top:0px;" >
      <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
-     <text style="margin-top:60px;width:620px">请您上传名下企业的有效营业执照：</text>
+     <text style="margin-top:60px;width:620px">请您提供尽可能多的资产证明，以邮寄方式由我司代为提交</text>
     <image src="{{image}}"  onclick='takePhoto' class="imagebox" ></image>
     <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">申请人为企业性质的公司法人时，需要提供有经营范围的营业执照。</text>
+    <text class="tiptext2line mydes">经济证明材料：提供存折原件或近半年银行流水账单原件,活期要有一年以上记录,定期要半年之前存入。</text>
   </div>
    <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">营业执照和组织机构代码证均为清晰的复印件并加盖公司公章。</text>
-  </div>
-  <div class="tips">
-    <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">营业执照或组织机构代码证上必须有近一年内的年检章申请人为企业性质的公司。</text>
+    <text class="tiptext2line mydes">如有房产、汽车,股票、基金等,也可提供相关文件资料（其中房产证和车辆登记证需提供原件）。</text>
   </div>
   <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
     </div>
@@ -106,19 +108,11 @@
 
     <div class="centerbox data {{box3}}"  id="box3" style="margin-top:0px;" >
      <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
-     <text style="margin-top:60px;width:620px">请您上传名下企业的有效营业执照：</text>
+     <text style="margin-top:60px;width:620px">请您上传学生证的正面照片：</text>
     <image src="{{image}}"  onclick='takePhoto' class="imagebox" ></image>
     <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">申请人为企业性质的公司法人时，需要提供有经营范围的营业执照。</text>
-  </div>
-   <div class="tips">
-    <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">营业执照和组织机构代码证均为清晰的复印件并加盖公司公章。</text>
-  </div>
-  <div class="tips">
-    <image class="tipimage mydes" src="/Common/warn.png"></image>
-    <text class="tiptext2line mydes">营业执照或组织机构代码证上必须有近一年内的年检章申请人为企业性质的公司。</text>
+    <text class="tiptext2line mydes">在校学生需提供由学校出具的有学校函头并盖章的学生假期证明和学生证。</text>
   </div>
 
   
@@ -126,7 +120,7 @@
     </div>
 
     
-<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh(2)" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -154,8 +148,47 @@ export default {
     checked2:'false',
     checked3:'false',
     disabled: 'false',
+    tipyes:'',
+    tipno:'unsee',
     filename: '',
+    buttontype: 'btnfalse',
     image:'/Common/creditcard.jpg',
+    "faRen": "马化腾",
+    "companyName": "深圳市腾讯计算机系统有限公司",
+        "memberList": [
+      {
+        "memberName": "许晨晔",
+        "position": "董事"
+      },
+      {
+        "memberName": "奚丹",
+        "position": "董事"
+      },
+      {
+        "memberName": "任宇昕",
+        "position": "董事"
+      },
+      {
+        "memberName": "马化腾",
+        "position": "董事"
+      },
+      {
+        "memberName": "谢晴华",
+        "position": "监事"
+      },
+      {
+        "memberName": "周昭钦",
+        "position": "监事"
+      },
+      {
+        "memberName": "黄秋华",
+        "position": "监事"
+      },
+      {
+        "memberName": "马化腾",
+        "position": "总经理"
+      }
+    ],
   },
   public: {
     name:'',//'夏与',
@@ -176,14 +209,23 @@ export default {
 
   },
 
-    fresh(){
+    fresh(type){
     this.buttontype = 'btn'
     console.info('yesss')
     this.databoxtype = "descripbox"
     this.warnboxtype = "unseedesbox"
     this.disabled = 'false'
     
-    //调用这个函数可以激活下一步事件
+    //调用这个函数可以激活下一步事件,1为用户在注册人员里面，2为用户不在注册人员里面
+
+    if(type == 1){
+      this.tipyes = ""
+      this.tipno = "unsee"
+    }else{
+      this.tipyes = "unsee"
+      this.tipno = ""
+    }
+
   },
 
   showtype(index){
@@ -219,6 +261,12 @@ export default {
     justify-content:flex-start;
     align-items: center;
     
+  }
+
+  .columnbox{
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: flex-start;
   }
 
   .mydes{
@@ -257,6 +305,15 @@ export default {
     justify-content:flex-start;
     align-items: center;
     margin-bottom: 30px;
+  }
+
+
+  .unsee{
+    display: none;
+  }
+
+  .lineheight{
+    height: 100px;
   }
   
   
