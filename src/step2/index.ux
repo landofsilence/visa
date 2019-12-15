@@ -182,7 +182,7 @@ export default {
       params:{
         cookie:'cookie值，这里请服务器返回给我',
         name: '熊毓琦',//this.name,
-        IDcard: '362423199908292017'//this.IDcard
+        IDcard: '3624231999********'//this.IDcard
       }
     })
     
