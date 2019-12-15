@@ -110,17 +110,25 @@
 
   .tips{
     flex-direction: row;
+    align-items: center;
+    justify-items: center;
     margin-top: 32px;
     width:620px;
   }
 
   .tipimage{
     width: 46px;
-    height:36px;
+    height:46px;
   }
   
   .tiptext{
     height: 36px;
+    font-size: 30px;
+    margin-left: 45px;
+
+  }
+
+  .tiptext2line{
     font-size: 30px;
     margin-left: 45px;
 

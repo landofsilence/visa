@@ -58,7 +58,7 @@
     <text class="tiptext mydes">身份验证通过，点击进入下一步</text>
   </div>
     </div>
-<input id='nextstep' type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+<input id='nextstep' type="button" onclick="clicknext" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -83,7 +83,7 @@ export default {
     sex:'男',
     address:'广西玉林',
     birthday:'19990501',
-    disabled: 'true',
+    disabled: 'false',
     filename: ''
 
   },
@@ -178,7 +178,7 @@ export default {
   clicknext(){
     console.info('yesss')
     router.replace({
-      uri: '/step2',
+      uri: '/step3',
       params:{cookie:'cookie值，这里请服务器返回给我'}
     })
     

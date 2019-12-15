@@ -1,0 +1,140 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="demo-page">
+    <div class="stepbox">
+      <div class="stepclass"> 
+        <text class="stepnotn">①</text>
+        <text class="stepnot">签证选择</text>
+        
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">②</text>
+        <text class="stepnot">身份校验</text>
+        
+      </div>
+      <div class="stepclass"> 
+        <text class="stepisn">③</text>
+        <text class="stepis">流水校验</text>
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">④</text>
+        <text class="stepnot">辅助信息</text>
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">⑤</text>
+        <text class="stepnot">确认办理</text>
+      </div>
+    </div>
+
+
+    <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
+
+    <text style="margin-top:60px;width:620px">请拍照上传您的银行卡正面照片，我们需要核验您银行流水信息的真实性</text>
+    <image src="{{img}}" class="imagebox" onclick='takePhoto' style="margin-top:30px"></image>
+    <image src="/Common/creditcard.jpg" class="imagebox"></image>
+    <div class="descripbox {{warnboxtype}}" id="warning" style="margin-top:10px;" >
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">使领馆要求您提供近期3-6个月的银行流水账单，请确认提交的流水材料与验证银行卡一致</text>
+  </div>
+   <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">建议您提供近半年的账单，最能体现整体的情况</text>
+  </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">如果收入过低或者不稳定，会被认为经济能力不足支持行程，可能会导致拒签哦</text>
+  </div>
+    </div>
+    <div id="data" class="{{databoxtype}}">
+    <div class="descripbox" style="margin-top:10px;">
+      <text class="descrip">姓名：</text>
+      <text class="content">{{name}}</text>
+    </div>
+    <div class="descripbox mydes">
+      <text class="descrip">身份证号：</text>
+      <text class="content">{{IDcard}}</text>
+    </div>
+    <div class="descripbox mydes">
+      <text class="descrip">银行卡号：</text>
+      <text class="content">{{credit}}</text>
+    </div>
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/yes.png"></image>
+    <text class="tiptext mydes">银行卡与身份证匹配，点击进入下一步</text>
+  </div>
+    </div>
+<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+    
+  </div>
+  
+</template>
+
+<script>
+import router from '@system.router'
+
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+    lcList:[],
+    title: '示例页面',
+    warnboxtype:'descripbox',
+    databoxtype:'unseedesbox',
+    buttontype: 'btnfalse',
+    disabled: 'false',
+    name:'夏与',
+    IDcard:'45092119990501165*',
+    credit:'86468464646464646',
+
+  },
+  routeDetail () {
+    // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
+    
+    router.replace ({
+      uri: '/step3'
+    })
+  },
+  
+
+  onInit() {
+
+  },
+
+    fresh(){
+    this.buttontype = 'btn'
+    console.info('yesss')
+    this.databoxtype = "descripbox"
+    this.warnboxtype = "unseedesbox"
+    this.disabled = 'false'
+    
+    //调用这个函数可以激活下一步事件
+  },
+
+}
+</script>
+
+
+<style>
+  @import './../Common/style.css';
+  .demo-page {
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    
+  }
+
+  .mydes{
+    margin-top: 30px;
+  }
+
+   #data{
+    flex-direction: column;
+    justify-content:flex-start;
+  }
+
+   #warning{
+    flex-direction: column;
+    justify-content:flex-start;
+  }
+  
+</style>
