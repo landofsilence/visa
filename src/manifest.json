@@ -54,6 +54,12 @@
       "step4": {
         "component": "index"
       },
+      "step5": {
+        "component": "index"
+      },
+      "stepsuccess": {
+        "component": "index"
+      },
       "About": {
         "component": "index"
       }
@@ -92,6 +98,12 @@
       },
       "step4": {
         "titleBarText": "第四步"
+      },
+      "step5": {
+        "titleBarText": "第五步"
+      },
+      "stepsuccess": {
+        "titleBarText": "提交成功"
       },
       "step2": {
         "titleBarText": "第二步"

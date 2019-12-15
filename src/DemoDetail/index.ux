@@ -46,7 +46,7 @@
 
     <div class="phonebox">
       <input type="text" placeholder="请输入手机号码" class="input" value='{{phone}}' style="width:580px" onchange='phoneChanged'></input>
-      <input type="button" class="btn" style="width:170px;font-size:32px;" onclick='phoneCheck' value="获取验证"></input>
+      <input type="button" class="{{btntype}}" style="width:170px;font-size:32px;" onclick='phoneCheck' value="{{btntext}}" disabled="{{codedisabled}}"></input>
     </div>
        <input type="text" placeholder="请输入验证码" class="input phonebox" onchange='codeChanged' style="width:620px;" ></input>
       <input id='nextstep' type="button" onclick="nextStep" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>
@@ -68,7 +68,10 @@ export default {
     phone: '',
     phonecode: '',
     code: '0123',
-    disabled: 'true'
+    disabled: 'true',
+    codedisabled:'true',
+    btntype:'btnfalse',
+    btntext:'获取验证'
   },
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
@@ -80,6 +83,8 @@ export default {
   },
   phoneChanged(e) {
     this.phone = e.text
+    this.codedisabled = 'false'
+    this.btntype = 'btn'
   },
   nextStep() {
     console.log('this.code ==== ' + this.code)
@@ -111,6 +116,8 @@ export default {
         }
       }
     })
+    
+    this.timer()
   },
   
 
@@ -127,7 +134,23 @@ export default {
     
   },
 
-  
+   timer: function () {
+    this.btntype = 'btnfalse'
+    this.codedisabled = 'true'
+    var that = this;
+    var second = 59;
+    this.btntext = second;
+    var setTimer = setInterval(function(){
+        second--
+        that.btntext = second
+        if(second == 0){
+          that.btntype = 'btn'
+          that.codedisabled = 'false'
+          that.btntext = '获取验证'
+          clearInterval(setTimer);
+      }
+    }, 1000);
+  },
 
   fresh(){
     this.buttontype = 'btn'

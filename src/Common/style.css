@@ -136,7 +136,7 @@
   .btn {
     border-radius:10px;
     background-color: #00af83;
-    font-size: 30px;
+    font-size: 38px;
     color: #ffffff;
   }
 
@@ -147,5 +147,27 @@
     color: #ffffff;
   }
 
- 
+  .price{
+    margin-top:60px;
+    
+    font-size:120px;
+    color:#a52a2a;
+}
+
+.centerbox{
+  justify-content:flex-start;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.columnbox{
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+}
+
+.data{
+  flex-direction: column;
+  justify-content:center;
+}
   

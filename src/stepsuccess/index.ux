@@ -1,0 +1,121 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="demo-page">
+    <div class="stepbox">
+      <div class="stepclass"> 
+        <text class="stepnotn">①</text>
+        <text class="stepnot">签证选择</text>
+        
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">②</text>
+        <text class="stepnot">身份校验</text>
+        
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">③</text>
+        <text class="stepnot">流水校验</text>
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">④</text>
+        <text class="stepnot">辅助信息</text>
+      </div>
+      <div class="stepclass"> 
+        <text class="stepisn">⑤</text>
+        <text class="stepis">确认办理</text>
+      </div>
+    </div>
+    <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
+
+
+    <div class="centerbox columnbox">
+    
+
+    <text style="margin-top:60px;font-size:90px;">订单提交成功</text>
+    <input id='nextstep' onclick="routeDetail" disabled="{{disabled}}" type="button"  class="btn" style="width:620px;margin-top:50px;height:80px;" value="返回首页"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+    
+    <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
+    
+     <div class="descripbox data">
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">48小时内将有专业签证顾问与您联系，领馆将保留要求您补充个人资料及面试的权利。</text>
+    </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes lineheight">您需要提交的材料有：护照原件、照片原件、签证申请表原件、户口本或暂住证复印件、在职证明及银行对账单等。</text>
+  </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes lineheight">请将相关材料寄至地址：湖南省长沙市xx路xx旅行社。</text>
+  </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes lineheight">如果您中途取消办理，我们会为您作出护照撤销申请。如未产生费用，我们会尽快为您退款。如已产生费用，本司无法退还。</text>
+  </div>
+    </div>
+
+ </div>
+</div>
+  
+</template>
+<script>
+import router from '@system.router'
+
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+    lcList:[],
+    title: '示例页面',
+    second:2,
+    minute:59,
+  },
+  routeDetail () {
+    // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
+    router.back({
+      path: '/Demo'
+    })
+  },
+  changetext(){
+    
+
+  },
+ 
+
+  
+
+}
+</script>
+
+<style>
+  @import './../Common/style.css';
+  .demo-page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+  }
+
+  .title {
+    width: 320px;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .inputfirst{
+    width: 620px;
+    height: 84px;
+    font-size: 32px;
+    border:1px solid #5a5a5a;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    
+  }
+
+
+ 
+</style>
+
+
+    
