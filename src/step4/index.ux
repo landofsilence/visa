@@ -1,0 +1,263 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="demo-page">
+    <div class="stepbox">
+      <div class="stepclass"> 
+        <text class="stepnotn">①</text>
+        <text class="stepnot">签证选择</text>
+        
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">②</text>
+        <text class="stepnot">身份校验</text>
+        
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">③</text>
+        <text class="stepnot">流水校验</text>
+      </div>
+      <div class="stepclass"> 
+        <text class="stepisn">④</text>
+        <text class="stepis">辅助信息</text>
+      </div>
+      <div class="stepclass"> 
+        <text class="stepnotn">⑤</text>
+        <text class="stepnot">确认办理</text>
+      </div>
+    </div>
+
+
+    <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
+
+    <text style="margin-top:60px;width:620px">请选择您的职业并提交相应的辅助材料：</text>
+    <div class="leftrightbox">
+      <input  type="radio" checked="{{checked1}}" onchange="showtype(1)" class=" myradio" value="" />
+      <text class="Iam" onclick="showtype(1)">我是企业法人</text>
+      </div>
+
+    <div class="centerbox data {{box1}}"  id="box1" style="margin-top:0px;" >
+     <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
+     <text style="margin-top:60px;width:620px">请您上传名下企业的有效营业执照：</text>
+    <image src="{{image}}"  onclick='takePhoto' class="imagebox" ></image>
+    <div class="{{warnboxtype}} data">
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">申请人为企业性质的公司法人时，需要提供有经营范围的营业执照。</text>
+  </div>
+   <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">营业执照和组织机构代码证均为清晰的复印件并加盖公司公章。</text>
+  </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">营业执照或组织机构代码证上必须有近一年内的年检章申请人为企业性质的公司。</text>
+  </div>
+    </div>
+
+  <div id="data" class="{{databoxtype}} data">
+    <div class="descripbox" style="margin-top:10px;">
+      <text class="descrip">姓名：</text>
+      <text class="content">{{name}}</text>
+    </div>
+    <div class="descripbox mydes">
+      <text class="descrip">身份证号：</text>
+      <text class="content">{{IDcard}}</text>
+    </div>
+    <div class="descripbox mydes">
+      <text class="descrip">银行卡号：</text>
+      <text class="content">{{credit}}</text>
+    </div>
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/yes.png"></image>
+    <text class="tiptext mydes">银行卡与身份证匹配，点击进入下一步</text>
+  </div>
+    </div>
+  <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
+    </div>
+
+    <div class="leftrightbox">
+      <input  type="radio" checked="{{checked2}}" onchange="showtype(2)" class=" myradio" value="" />
+      <text class="Iam" onclick="showtype(2)">我是在职人员</text>
+      </div>
+
+    <div class="centerbox data {{box2}}"  id="box2" style="margin-top:0px;" >
+     <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
+     <text style="margin-top:60px;width:620px">请您上传名下企业的有效营业执照：</text>
+    <image src="{{image}}"  onclick='takePhoto' class="imagebox" ></image>
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">申请人为企业性质的公司法人时，需要提供有经营范围的营业执照。</text>
+  </div>
+   <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">营业执照和组织机构代码证均为清晰的复印件并加盖公司公章。</text>
+  </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">营业执照或组织机构代码证上必须有近一年内的年检章申请人为企业性质的公司。</text>
+  </div>
+  <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
+    </div>
+
+    <div class="leftrightbox">
+      <input  type="radio" checked="{{checked3}}" onchange="showtype(3)" class=" myradio" value="" />
+      <text class="Iam" onclick="showtype(3)">我是在校学生</text>
+      </div>
+
+    <div class="centerbox data {{box3}}"  id="box3" style="margin-top:0px;" >
+     <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
+     <text style="margin-top:60px;width:620px">请您上传名下企业的有效营业执照：</text>
+    <image src="{{image}}"  onclick='takePhoto' class="imagebox" ></image>
+    <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">申请人为企业性质的公司法人时，需要提供有经营范围的营业执照。</text>
+  </div>
+   <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">营业执照和组织机构代码证均为清晰的复印件并加盖公司公章。</text>
+  </div>
+  <div class="tips">
+    <image class="tipimage mydes" src="/Common/warn.png"></image>
+    <text class="tiptext2line mydes">营业执照或组织机构代码证上必须有近一年内的年检章申请人为企业性质的公司。</text>
+  </div>
+
+  
+  <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
+    </div>
+
+    
+<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+    
+  </div>
+  
+</template>
+
+<script>
+import router from '@system.router'
+
+import media from '@system.media'
+import request from '@system.request'
+import fetch from '@system.fetch'
+import image from '@system.image'
+import prompt from '@system.prompt'
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+    lcList:[],
+    title: '示例页面',
+    box1:'unseedesbox',
+    box2:'unseedesbox',
+    box3:'unseedesbox',
+    warnboxtype:'descripbox',
+    databoxtype:'unseedesbox',
+    checked1:'false',
+    checked2:'false',
+    checked3:'false',
+    disabled: 'false',
+    filename: '',
+    image:'/Common/creditcard.jpg',
+  },
+  public: {
+    name:'',//'夏与',
+    IDcard:'',//'45092119990501165*',
+    credit:'86468464646464646', 
+  },
+  
+  routeDetail () {
+    // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
+    
+    router.replace ({
+      uri: '/step5'
+    })
+  },
+  
+
+  onInit() {
+
+  },
+
+    fresh(){
+    this.buttontype = 'btn'
+    console.info('yesss')
+    this.databoxtype = "descripbox"
+    this.warnboxtype = "unseedesbox"
+    this.disabled = 'false'
+    
+    //调用这个函数可以激活下一步事件
+  },
+
+  showtype(index){
+    //点击事件
+    this.box1='unseedesbox'
+    this.box2='unseedesbox'
+    this.box3='unseedesbox'
+    this.checked1='false'
+    this.checked2='false'
+    this.checked3='false'
+    if(index == 1){
+      this.checked1 = 'true'
+      this.box1='descripbox'
+    }
+    else if(index == 2){
+      this.checked2 = 'true'
+      this.box2='descripbox'
+    }
+    else if(index == 3){
+      this.checked3 = 'true'
+      this.box3='descripbox'
+    }
+  }
+
+}
+</script>
+
+
+<style>
+  @import './../Common/style.css';
+  .demo-page {
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    
+  }
+
+  .mydes{
+    margin-top: 30px;
+  }
+
+   .data{
+    flex-direction: column;
+    justify-content:center;
+  }
+
+   #warning{
+    flex-direction: column;
+    justify-content:flex-start;
+  }
+
+  .leftrightbox{
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+    width:620px;
+    margin-top: 30px;
+  }
+  .Iam{
+    align-items: center;
+    align-self: center;
+    font-size: 40px;
+    
+  }
+  .imagebox{
+    width: 200px;
+    margin-top: 30px;
+    
+  }
+  .centerbox{
+    justify-content:flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  
+</style>

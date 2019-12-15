@@ -30,7 +30,7 @@
     <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
 
     <text style="margin-top:60px;width:620px">请拍照上传您的银行卡正面照片，我们需要核验您银行流水信息的真实性</text>
-    <image src="{{image}}"  onclick='takePhoto' class="imagebox"></image>
+    <image src="{{image}}"  onclick='takePhoto' class="imagebox" style="margin-top:30px;"></image>
     <div class="descripbox {{warnboxtype}}" id="warning" style="margin-top:10px;" >
     <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
@@ -63,7 +63,7 @@
     <text class="tiptext mydes">银行卡与身份证匹配，点击进入下一步</text>
   </div>
     </div>
-<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+<input id='nextstep' disabled="{{disabled}}" type="button" onclick="routeDetail" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -184,7 +184,7 @@ export default {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
     
     router.replace ({
-      uri: '/step3'
+      uri: '/step4'
     })
   },
   

@@ -83,7 +83,7 @@ export default {
     sex:'男',
     address:'广西玉林',
     birthday:'19990501',
-    disabled: 'true',
+    disabled: 'false',
     filename: ''
 
   },

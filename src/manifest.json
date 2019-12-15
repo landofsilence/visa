@@ -51,6 +51,9 @@
       "step3": {
         "component": "index"
       },
+      "step4": {
+        "component": "index"
+      },
       "About": {
         "component": "index"
       }
@@ -86,6 +89,9 @@
       },
       "step3": {
         "titleBarText": "第三步"
+      },
+      "step4": {
+        "titleBarText": "第四步"
       },
       "step2": {
         "titleBarText": "第二步"
