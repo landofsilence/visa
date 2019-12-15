@@ -83,7 +83,7 @@ export default {
     sex:'男',
     address:'广西玉林',
     birthday:'19990501',
-    disabled: 'false',
+    disabled: 'true',
     filename: ''
 
   },
@@ -179,7 +179,11 @@ export default {
     console.info('yesss')
     router.replace({
       uri: '/step3',
-      params:{cookie:'cookie值，这里请服务器返回给我'}
+      params:{
+        cookie:'cookie值，这里请服务器返回给我',
+        name: '熊毓琦',//this.name,
+        IDcard: '362423199908292017'//this.IDcard
+      }
     })
     
   },

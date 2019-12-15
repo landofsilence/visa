@@ -30,8 +30,7 @@
     <image style="background-color:#d8d8d8;height:40px;width:100%;margin-top:30px;"></image>
 
     <text style="margin-top:60px;width:620px">请拍照上传您的银行卡正面照片，我们需要核验您银行流水信息的真实性</text>
-    <image src="{{img}}" class="imagebox" onclick='takePhoto' style="margin-top:30px"></image>
-    <image src="/Common/creditcard.jpg" class="imagebox"></image>
+    <image src="{{image}}"  onclick='takePhoto' class="imagebox"></image>
     <div class="descripbox {{warnboxtype}}" id="warning" style="margin-top:10px;" >
     <div class="tips">
     <image class="tipimage mydes" src="/Common/warn.png"></image>
@@ -64,7 +63,7 @@
     <text class="tiptext mydes">银行卡与身份证匹配，点击进入下一步</text>
   </div>
     </div>
-<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步" disabled="{{disabled}}"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -73,6 +72,11 @@
 <script>
 import router from '@system.router'
 
+import media from '@system.media'
+import request from '@system.request'
+import fetch from '@system.fetch'
+import image from '@system.image'
+import prompt from '@system.prompt'
 export default {
   // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
   private: {
@@ -82,9 +86,98 @@ export default {
     databoxtype:'unseedesbox',
     buttontype: 'btnfalse',
     disabled: 'false',
-    name:'夏与',
-    IDcard:'45092119990501165*',
-    credit:'86468464646464646',
+    filename: '',
+    image:'/Common/creditcard.jpg'
+  },
+  public: {
+    name:'',//'夏与',
+    IDcard:'',//'45092119990501165*',
+    credit:'86468464646464646', 
+  },
+  takePhoto() {
+    console.log('takePhoto')
+    const self = this
+    console.log('name = ' + this.name)
+
+    media.takePhoto({
+      success: function(data) {
+        var img_uri = data.uri
+        image.compressImage({
+          uri: img_uri,
+          success: function (data) {
+            img_uri = data.uri
+            self.filename = Math.random().toString(36).substr(2) + '.jpg'
+            console.log('compressImage ====== ' + data.uri)
+
+            image.getImageInfo({
+              uri: img_uri,
+              success: function (data) {
+                console.log(`img size = ${data.size}`)
+              }
+            })
+
+            request.upload({
+              url: 'http://120.78.141.62:8765/visa/upload',
+              files: [
+                {
+                  uri: img_uri,
+                  filename: self.filename
+                }
+              ],
+              success: function (ret) {
+                
+                console.log('upload success')
+                if (ret.code === 200) {
+                  console.log('ret.data = ' + ret.data)
+                  //self.fresh()
+                  fetch.fetch({
+                    url: 'http://120.78.141.62:8765/visa/ocr',
+                    data: {
+                      img: self.filename,
+                      idCard: self.IDcard,
+                      name: self.name
+                    },
+                    method: 'POST',
+                    responseType: 'json',
+                    success: function (ret) {
+                      if (ret.data.status == '01') {
+                        self.image = img_uri
+                        self.name = ret.data.name
+                        self.IDcard = ret.data.idCard
+                        self.credit = ret.data.accountNo
+
+                        self.fresh()
+                        prompt.showToast({
+                          message: ret.data.msg
+                        })
+                      } else {
+                        prompt.showToast({
+                          message: ret.data.msg
+                        })
+                      }
+                    },
+                    fail: function (ret) {
+                        prompt.showToast({
+                          message: '验证失败'
+                        })
+                    }
+                  })
+                }
+              },
+              fail: function(data, code) {
+                console.log(`upload fail, code = ${code}`)
+              }
+            })
+          }
+        })
+      },
+      fail: function(data, code) {
+        console.log(`takePhoto fail, code = ${code}`)
+      }
+    })
+
+  
+  
 
   },
   routeDetail () {
