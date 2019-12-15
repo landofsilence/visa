@@ -153,9 +153,9 @@ export default {
     filename: '',
     buttontype: 'btnfalse',
     image:'/Common/creditcard.jpg',
-    "faRen": "马化腾",
-    "companyName": "深圳市腾讯计算机系统有限公司",
-        "memberList": [
+    faRen: "马化腾",
+    companyName: "深圳市腾讯计算机系统有限公司",
+    memberList: [
       {
         "memberName": "许晨晔",
         "position": "董事"
@@ -203,13 +203,112 @@ export default {
       uri: '/step5'
     })
   },
-  
+  takePhoto() {
+    console.log('takePhoto')
+    const self = this
+    console.log('name = ' + this.name)
+
+    media.takePhoto({
+      success: function(data) {
+        var img_uri = data.uri
+        image.compressImage({
+          uri: img_uri,
+          success: function (data) {
+            img_uri = data.uri
+            self.filename = Math.random().toString(36).substr(2) + '.jpg'
+            console.log('compressImage ====== ' + data.uri)
+
+            image.getImageInfo({
+              uri: img_uri,
+              success: function (data) {
+                console.log(`img size = ${data.size}`)
+              }
+            })
+
+            request.upload({
+              url: 'http://120.78.141.62:8765/visa/upload',
+              files: [
+                {
+                  uri: img_uri,
+                  filename: self.filename
+                }
+              ],
+              success: function (ret) {
+                
+                console.log('upload success')
+                if (ret.code === 200) {
+                  /*for(var i = 0; i < self.memberList.length; i++){
+                    console.log('self.memberList[i].memberName = ' + self.memberList[i].memberName)
+                    console.log('self.name = ' + self.name)
+                    if(self.memberList[i].memberName == self.name){
+                      self.fresh(1)
+                      break;
+                    }
+                    if(i == self.memberList.length - 1){
+                      self.fresh(2)
+                    }
+                  }*/
+                  fetch.fetch({
+                    url: 'http://120.78.141.62:8765/visa/ocrCommerceAccurate',
+                    data: {
+                      img: 'yyzz.jpg'//self.filename,
+                    },
+                    method: 'POST',
+                    responseType: 'json',
+                    success: function (ret) {
+                      if (ret.data.message == '查询成功') {
+                        self.image = img_uri
+                        self.memberList = ret.data.result.memberList
+                        self.faRen = ret.data.result.faRen
+                        self.companyName = ret.data.result.companyName
+                        console.log('查询成功')
+
+                        for(var i = 0; i < self.memberList.length; i++){
+                          if(self.memberList[i].memberName == self.name){
+                            self.fresh(1)
+                            break;
+                          }
+                          if(i == self.memberList.length - 1){
+                            self.fresh(2)
+                          }
+                        }
+                        prompt.showToast({
+                          message: '验证成功'
+                        })
+                      } else {
+                        console.log('验证失败')
+                        prompt.showToast({
+                          message: '验证失败'
+                        })
+                      }
+                    },
+                    fail: function (ret) {
+                        console.log('验证失败2')
+                        prompt.showToast({
+                          message: '验证失败2'
+                        })
+                    }
+                  })
+                }
+              },
+              fail: function(data, code) {
+                console.log(`upload fail, code = ${code}`)
+              }
+            })
+          }
+        })
+      },
+      fail: function(data, code) {
+        console.log(`takePhoto fail, code = ${code}`)
+      }
+    })
+  },
 
   onInit() {
 
   },
 
-    fresh(type){
+  fresh(type){
     this.buttontype = 'btn'
     console.info('yesss')
     this.databoxtype = "descripbox"

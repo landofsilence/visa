@@ -91,7 +91,12 @@ export default {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
     
     router.push ({
-      uri: '/step4'
+      uri: '/step4',
+      params:{
+        name: '高天政',//self.name,
+        IDcard: '3624231999********',//self.IDcard
+        credit: '36********761'//self.credit
+      }
     })
   },
 
