@@ -393,17 +393,10 @@ imgHandle(img_uri){
     font-size: 40px;
     
   }
-  .imagebox{
-    width: 200px;
-    margin-top: 30px;
-    
-  }
   
 
 
-  .unsee{
-    display: none;
-  }
+
 
   .lineheight{
     height: 100px;
