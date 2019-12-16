@@ -184,7 +184,10 @@ export default {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
     
     router.replace ({
-      uri: '/step4'
+      uri: '/step4',
+      params:{
+        name: '许文忠'
+      }
     })
   },
   

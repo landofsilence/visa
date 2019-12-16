@@ -120,7 +120,7 @@
     </div>
 
     
-<input id='nextstep' disabled="{{disabled}}" type="button" onclick="fresh(2)" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+<input id='nextstep' disabled="{{disabled}}" type="button" onclick="next" class="{{buttontype}}" style="width:620px;margin-top:60px;height:80px;" value="下一步"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
   </div>
   
@@ -196,7 +196,7 @@ export default {
     credit:'86468464646464646', 
   },
   
-  routeDetail () {
+  next () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
     
     router.replace ({
@@ -207,99 +207,73 @@ export default {
     console.log('takePhoto')
     const self = this
     console.log('name = ' + this.name)
-
-    media.takePhoto({
+    media.pickImage({
       success: function(data) {
+        console.log(`handling success: ${data.uri}`)
         var img_uri = data.uri
-        image.compressImage({
-          uri: img_uri,
-          success: function (data) {
-            img_uri = data.uri
-            self.filename = Math.random().toString(36).substr(2) + '.jpg'
-            console.log('compressImage ====== ' + data.uri)
-
-            image.getImageInfo({
+        self.filename = Math.random().toString(36).substr(2) + '.jpg'
+        request.upload({
+          url: 'http://120.78.141.62:8765/visa/upload',
+          files: [
+            {
               uri: img_uri,
-              success: function (data) {
-                console.log(`img size = ${data.size}`)
-              }
-            })
-
-            request.upload({
-              url: 'http://120.78.141.62:8765/visa/upload',
-              files: [
-                {
-                  uri: img_uri,
-                  filename: self.filename
-                }
-              ],
-              success: function (ret) {
+              filename: self.filename
+            }
+          ],
+          success: function (ret) {
                 
-                console.log('upload success')
-                if (ret.code === 200) {
-                  /*for(var i = 0; i < self.memberList.length; i++){
-                    console.log('self.memberList[i].memberName = ' + self.memberList[i].memberName)
-                    console.log('self.name = ' + self.name)
-                    if(self.memberList[i].memberName == self.name){
-                      self.fresh(1)
-                      break;
-                    }
-                    if(i == self.memberList.length - 1){
-                      self.fresh(2)
-                    }
-                  }*/
-                  fetch.fetch({
-                    url: 'http://120.78.141.62:8765/visa/ocrCommerceAccurate',
-                    data: {
-                      img: 'yyzz.jpg'//self.filename,
-                    },
-                    method: 'POST',
-                    responseType: 'json',
-                    success: function (ret) {
-                      if (ret.data.message == '查询成功') {
-                        self.image = img_uri
-                        self.memberList = ret.data.result.memberList
-                        self.faRen = ret.data.result.faRen
-                        self.companyName = ret.data.result.companyName
-                        console.log('查询成功')
+            console.log('upload success')
+            if (ret.code === 200) {
+              fetch.fetch({
+                url: 'http://120.78.141.62:8765/visa/ocrCommerceAccurate',
+                data: {
+                  img: self.filename,
+                },
+                method: 'POST',
+                responseType: 'json',
+                success: function (ret) {
+                  if (ret.data.message == '查询成功') {
+                    self.image = img_uri
+                    self.memberList = ret.data.result.memberList
+                    self.faRen = ret.data.result.faRen
+                    self.companyName = ret.data.result.companyName
+                    console.log('查询成功')
 
-                        for(var i = 0; i < self.memberList.length; i++){
-                          if(self.memberList[i].memberName == self.name){
-                            self.fresh(1)
-                            break;
-                          }
-                          if(i == self.memberList.length - 1){
-                            self.fresh(2)
-                          }
-                        }
-                        prompt.showToast({
-                          message: '验证成功'
-                        })
-                      } else {
-                        console.log('验证失败')
-                        prompt.showToast({
-                          message: '验证失败'
-                        })
+                    for(var i = 0; i < self.memberList.length; i++){
+                      if(self.memberList[i].memberName == self.name){
+                        self.fresh(1)
+                        break;
                       }
-                    },
-                    fail: function (ret) {
-                        console.log('验证失败2')
-                        prompt.showToast({
-                          message: '验证失败2'
-                        })
+                      if(i == self.memberList.length - 1){
+                        self.fresh(2)
+                      }
                     }
+                    prompt.showToast({
+                      message: '验证成功'
+                    })
+                  } else {
+                    console.log('验证失败')
+                    prompt.showToast({
+                      message: '验证失败'
+                    })
+                  }
+                },
+                fail: function (ret) {
+                  console.log('验证失败2')
+                  prompt.showToast({
+                    message: '验证失败2'
                   })
                 }
-              },
-              fail: function(data, code) {
-                console.log(`upload fail, code = ${code}`)
-              }
-            })
+              })
+            }
+          },
+          fail: function(data, code) {
+            console.log(`upload fail, code = ${code}`)
           }
         })
       },
       fail: function(data, code) {
-        console.log(`takePhoto fail, code = ${code}`)
+        console.log(`handling fail, code = ${code}`)
       }
     })
   },

@@ -36,7 +36,7 @@
        <text class="countryName">菲律宾</text>
      </div>
      <div class="countryType">
-       <image src="/Common/tailand.png" class="countryImg" id="japan"></image>
+       <image src="/Common/tailand.png" class="countryImg" id="japan" onclick="route5"></image>
        <text class="countryName">泰国</text>
      </div>
      <div class="countryType"  style="margin-right: 0px">
@@ -88,6 +88,16 @@ export default {
 
   },
   route4 () {
+    // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
+    
+    router.push ({
+      uri: '/step4',
+      params:{
+        name: '许文忠'
+      }
+    })
+  },
+  route5 () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
     
     router.push ({
