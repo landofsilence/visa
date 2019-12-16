@@ -26,6 +26,9 @@
     },
     {
       "name": "system.media"
+    },
+    {
+      "name": "service.alipay"
     }
   ],
   "permissions": [

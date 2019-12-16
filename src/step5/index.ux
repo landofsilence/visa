@@ -60,7 +60,7 @@
     <text  class="price">198.00</text>
 
     <text style="margin-top:60px;font-size:40px;">请在 {{minute}} 分 {{second}} 秒内完成支付</text>
-    <input id='nextstep' onclick="routeDetail" disabled="{{disabled}}" type="button"  class="btn" style="width:620px;margin-top:50px;height:80px;" value="去支付"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
+    <input id='nextstep' onclick="appPay" disabled="{{disabled}}" type="button"  class="btn" style="width:620px;margin-top:50px;height:80px;" value="去支付"></input>      <!-- 默认下一步是禁用，如果禁用按钮解除,请调用fresh() -->
     
     
      <div class="descripbox data">
@@ -88,6 +88,8 @@
 </template>
 <script>
 import router from '@system.router'
+import alipay from '@service.alipay'
+import fetch from '@system.fetch'
 
 export default {
   // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
@@ -96,8 +98,48 @@ export default {
     title: '示例页面',
   },
   public: {
-      minute:2,
+    minute:2,
     second:59,
+    returnId: ''
+  },
+  appPay () {
+    const self = this
+    const amount = 198
+    console.log('self.random_No() = ' + self.random_No())
+    /*fetch.fetch({
+      url: 'http://120.78.141.62:8765/visa/alipay/app?orderId=' + self.random_No() + '&amount=' + amount,
+      data: {
+        orderId: self.IDcard,
+        amount: self.name
+      },
+      method: 'POST',
+      responseType: 'json',
+      success: function (ret) {
+        self.returnId = ret.data.code
+        alipay.pay({
+          orderInfo: self.returnId,
+          callback: function(ret) {
+            console.log('handling callback')
+          }
+        })
+      },
+      fail: function (ret) {
+        prompt.showToast({
+          message: '验证失败'
+        })
+      }
+    })*/
+    router.replace({
+      uri: 'http://120.78.141.62:8765/visa/alipay/mobile?orderId=' + self.random_No() + '&amount=' + amount
+    })
+  },
+  random_No() {
+    var random_no = ''
+    for (var i = 0; i < 6; i++) {//j位随机数，用以加在时间戳后面。
+      random_no += Math.floor(Math.random() * 10)
+    }
+    random_no = new Date().getTime() + random_no
+    return random_no
   },
   routeDetail () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
