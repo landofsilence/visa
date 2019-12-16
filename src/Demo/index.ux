@@ -7,8 +7,8 @@
     </div>
   <div class="inputbox">
     
-  <input type="text" id="username" placeholder="搜索更多国家" class="inputfirst"/>
-  <input type="button" class="searchButton"/>
+  <input type="text" id="username" placeholder="搜索更多国家" class="inputfirst" onchange="countryChanged"/>
+  <input type="button" class="searchButton"  disabled="{{disabled}}" onclick="search"/>
   </div>
   <div class="optcontain">
      <div class="countryType">
@@ -72,12 +72,16 @@
 
 <script>
 import router from '@system.router'
+import fetch from '@system.fetch'
+import image from '@system.image'
+import prompt from '@system.prompt'
 
 export default {
   // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
   private: {
     lcList:[],
-    title: '示例页面'
+    title: '示例页面',
+    disabled:true
   },
   routeDetail () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
@@ -86,6 +90,46 @@ export default {
       uri: '/DemoDetail'
     })
   },
+
+  countryChanged(e) {
+    this.country = e.text
+    this.disabled = false
+  
+  },
+
+  search(){
+    const self = this
+    console.log('search start')
+    fetch.fetch({
+      url: 'http://120.78.141.62:8765/visa/country',
+      data:{
+        country: self.country
+      },
+      method: 'POST',
+      responseType: 'json',
+      success: function (ret) {
+        
+        console.log('fetch success')
+        if (ret.data.status == '0') {
+          router.push ({
+            uri: '/DemoDetail',
+            params:{
+              country: ret.data.name,
+              money: ret.data.currency,
+              exchange: ret.data.finance,
+              hotcity: ret.data.maincity,
+              flag:ret.data.nationalflag
+            }
+          })
+        } else {
+          prompt.showToast({
+                        message: ret.data.msg
+                  })
+        }
+      }
+      })
+  },
+
   changetext(){
     
 
@@ -113,6 +157,8 @@ export default {
     this.lcList.push('onInit')
 
   }
+
+
 
 }
 </script>

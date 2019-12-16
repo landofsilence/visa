@@ -86,7 +86,7 @@ import router from '@system.router'
 import fetch from '@system.fetch'
 import prompt from '@system.prompt'
 export default {
-  private: {
+  public: {
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
     action:'',
