@@ -5,9 +5,12 @@
     <image src="/Common/logo.png" id="logo"></image>
     <text id="appname">走呗签证</text>
     </div>
-
+  <div class="inputbox">
+    
   <input type="text" id="username" placeholder="搜索更多国家" class="inputfirst"/>
-    <div class="optcontain">
+  <input type="button" class="searchButton"/>
+  </div>
+  <div class="optcontain">
      <div class="countryType">
        <image src="/Common/Japan.png" class="countryImg" id="japan" onclick="routeDetail"></image>
        <text class="countryName">日本</text>
@@ -129,17 +132,30 @@ export default {
     text-align: center;
   }
 
-  .inputfirst{
+  .inputbox{
+    flex-direction: row;
     width: 620px;
+    height: 84px;
+    margin-bottom: 40px;
+  }
+
+  .inputfirst{
+    width: 536px;
     height: 84px;
     font-size: 32px;
     border:1px solid #5a5a5a;
     padding-left: 10px;
     border-radius: 10px;
-    margin-bottom: 40px;
+    
     
   }
 
+  .searchButton{
+    width: 84px;
+    height:84px;
+    background-image: url(/Common/search.png);
+    border:1px solid #5a5a5a;
+  }
 
  
 </style>
