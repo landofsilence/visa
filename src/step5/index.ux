@@ -90,6 +90,7 @@
 import router from '@system.router'
 import alipay from '@service.alipay'
 import fetch from '@system.fetch'
+import prompt from '@system.prompt'
 
 export default {
   // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
@@ -105,30 +106,6 @@ export default {
   appPay () {
     const self = this
     const amount = 198
-    console.log('self.random_No() = ' + self.random_No())
-    /*fetch.fetch({
-      url: 'http://120.78.141.62:8765/visa/alipay/app?orderId=' + self.random_No() + '&amount=' + amount,
-      data: {
-        orderId: self.IDcard,
-        amount: self.name
-      },
-      method: 'POST',
-      responseType: 'json',
-      success: function (ret) {
-        self.returnId = ret.data.code
-        alipay.pay({
-          orderInfo: self.returnId,
-          callback: function(ret) {
-            console.log('handling callback')
-          }
-        })
-      },
-      fail: function (ret) {
-        prompt.showToast({
-          message: '验证失败'
-        })
-      }
-    })*/
     router.replace({
       uri: 'http://120.78.141.62:8765/visa/alipay/mobile?orderId=' + self.random_No() + '&amount=' + amount
     })

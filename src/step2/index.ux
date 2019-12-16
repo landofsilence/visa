@@ -94,82 +94,100 @@ export default {
   takePhoto() {
     console.log('takePhoto')
     const self = this
-
-    media.takePhoto({
+    prompt.showContextMenu({
+      itemList: ['拍照', '图库'],
+      itemColor: '#000000',
       success: function(data) {
-        var img_uri = data.uri
-        image.compressImage({
-          uri: img_uri,
-          success: function (data) {
-            img_uri = data.uri
-            self.filename = Math.random().toString(36).substr(2) + '.jpg'
-            console.log('compressImage ====== ' + data.uri)
-
-            image.getImageInfo({
-              uri: img_uri,
-              success: function (data) {
-                console.log(`img size = ${data.size}`)
-              }
-            })
-
-            request.upload({
-              url: 'http://120.78.141.62:8765/visa/upload',
-              files: [
-                {
-                  uri: img_uri,
-                  filename: self.filename
-                }
-              ],
-              success: function (ret) {
-                self.img = img_uri
-                console.log('upload success')
-                if (ret.code === 200) {
-                  console.log('ret.data = ' + ret.data)
-                  console.log('self.filename = ' + self.filename)
-                  self.fresh()
-                  /*fetch.fetch({
-                    url: 'http://120.78.141.62:8765/visa/img2base64?img=' + self.filename,
-                    method: 'POST',
-                    responseType: 'json',
-                    success: function (ret) {
-                      console.log('self.phone ========= ' + self.filename)
-                      if (ret.data.status == '01') {
-                        self.name = ret.data.name
-                        self.IDcard = ret.data.idCard
-                        self.sex = ret.data.sex
-                        self.address = ret.data.area
-                        self.birthday = ret.data.birthday
-                        self.fresh()
-                        prompt.showToast({
-                          message: ret.data.msg
-                        })
-                      } else {
-                        prompt.showToast({
-                          message: ret.data.msg
-                        })
-                      }
-                    },
-                    fail: function (ret) {
-                        prompt.showToast({
-                          message: '验证失败'
-                        })
-                    }
-                  })*/
-                }
-              },
-              fail: function(data, code) {
-                console.log(`upload fail, code = ${code}`)
-              }
-            })
-          }
-        })
+        if (data.index == 0){
+          media.takePhoto({
+            success: function(data) {
+              var img_uri = data.uri
+              self.imgHandle(img_uri)
+            },
+            fail: function(data, code) {
+              console.log(`takePhoto fail, code = ${code}`)
+            }
+          })
+        } else {
+          media.pickImage({
+            success: function(data) {
+              var img_uri = data.uri
+              self.imgHandle(img_uri)
+            },
+            fail: function(data, code) {
+              console.log(`handling fail, code = ${code}`)
+            }
+          })
+        }
+      },
+      cancel: function() {
+        console.log('handling cancel')
       },
       fail: function(data, code) {
-        console.log(`takePhoto fail, code = ${code}`)
-      }
+        console.log(`handling fail, code = ${code}`)
+      }   
     })
-
     
+  },
+  imgHandle(img_uri){
+    const self = this
+    image.compressImage({
+      uri: img_uri,
+      success: function (data) {
+        img_uri = data.uri
+        self.filename = Math.random().toString(36).substr(2) + '.jpg'
+        console.log('compressImage ====== ' + data.uri)
+        request.upload({
+          url: 'http://120.78.141.62:8765/visa/upload',
+          files: [
+            {
+              uri: img_uri,
+              filename: self.filename
+            }
+          ],
+          success: function (ret) {
+            self.img = img_uri
+            console.log('upload success')
+            if (ret.code === 200) {
+              self.fresh()
+              /*fetch.fetch({
+                url: 'http://120.78.141.62:8765/visa/img2base64',
+                data: {
+                  img: self.filename,
+                },
+                method: 'POST',
+                responseType: 'json',
+                success: function (ret) {
+                  if (ret.data.status == '01') {
+                    self.name = ret.data.name
+                    self.IDcard = ret.data.idCard
+                    self.sex = ret.data.sex
+                    self.address = ret.data.area
+                    self.birthday = ret.data.birthday
+                    self.fresh()
+                    prompt.showToast({
+                      message: ret.data.msg
+                    })
+                  } else {
+                    prompt.showToast({
+                      message: ret.data.msg
+                    })
+                  }
+                },
+                fail: function (ret) {
+                  prompt.showToast({
+                    message: '验证失败'
+                  })
+                }
+              })*/
+            }
+          },
+          fail: function(data, code) {
+            console.log(`upload fail, code = ${code}`)
+          }
+        })
+      }
+    })               
   },
   onMenuPress() {
     this.$app.$def.showMenu()
@@ -181,8 +199,8 @@ export default {
       uri: '/step3',
       params:{
         cookie:'cookie值，这里请服务器返回给我',
-        name: '熊毓琦',//this.name,
-        IDcard: '3624231999********'//this.IDcard
+        name: '廖志成',//this.name,
+        IDcard: '36252419990806****'//this.IDcard
       }
     })
     
