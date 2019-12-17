@@ -147,7 +147,7 @@ export default {
     checked1:'false',
     checked2:'false',
     checked3:'false',
-    disabled: 'false',
+    disabled: 'true',
     tipyes:'',
     tipno:'unsee',
     filename: '',
@@ -198,9 +198,13 @@ export default {
   
   next () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
-    
+    const self = this
     router.replace ({
-      uri: '/step5'
+      uri: '/step5',
+      params:{
+        name: self.name,
+        IDcard: self.IDcard,//'许文忠'
+      }
     })
   },
   takePhoto() {
@@ -263,8 +267,8 @@ imgHandle(img_uri){
             console.log('upload success')
             if (ret.code === 200) {
               console.log('ret.data = ' + ret.data)
-              self.fresh(1)
-              /*fetch.fetch({
+              //self.fresh(1)
+              fetch.fetch({
                 url: 'http://120.78.141.62:8765/visa/ocrCommerceAccurate',
                 data: {
                   img: self.filename,
@@ -287,13 +291,9 @@ imgHandle(img_uri){
                         self.fresh(2)
                       }
                     }
-                    prompt.showToast({
-                      message: ret.data.msg
-                    })
-                  } else {
-                    prompt.showToast({
-                      message: ret.data.msg
-                    })
+                    /*prompt.showToast({
+                      message: ret.data.message
+                    })*/
                   }
                 },
                 fail: function (ret) {
@@ -301,7 +301,7 @@ imgHandle(img_uri){
                     message: '验证失败'
                   })
                 }
-              })*/
+              })
             }
           },
           fail: function(data, code) {

@@ -85,13 +85,14 @@ export default {
     warnboxtype:'descripbox',
     databoxtype:'unseedesbox',
     buttontype: 'btnfalse',
-    disabled: 'false',
+    disabled: 'true',
     filename: '',
     image:'/Common/creditcard.jpg'
   },
   public: {
     name:'',//'夏与',
     IDcard:'',//'45092119990501165*',
+    IDcard2:'',//'45092119990501165*',
     credit:'86468464646464646', 
   },
   takePhoto() {
@@ -175,7 +176,7 @@ export default {
                     })
                   } else {
                     prompt.showToast({
-                      message: ret.data.msg
+                      message: '验证失败'
                     })
                   }
                 },
@@ -196,10 +197,12 @@ export default {
   },
   routeDetail () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
+    const self = this
     router.replace ({
       uri: '/step4',
       params:{
-        name: '许文忠'
+        name: self.name,
+        IDcard: self.IDcard2,//'许文忠'
       }
     })
   },

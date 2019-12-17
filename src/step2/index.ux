@@ -83,7 +83,7 @@ export default {
     sex:'男',
     address:'广西玉林',
     birthday:'19990501',
-    disabled: 'false',
+    disabled: 'true',
     filename: ''
 
   },
@@ -146,11 +146,10 @@ export default {
             }
           ],
           success: function (ret) {
-            self.img = img_uri
             console.log('upload success')
             if (ret.code === 200) {
-              self.fresh()
-              /*fetch.fetch({
+              //self.fresh()
+              fetch.fetch({
                 url: 'http://120.78.141.62:8765/visa/img2base64',
                 data: {
                   img: self.filename,
@@ -158,6 +157,7 @@ export default {
                 method: 'POST',
                 responseType: 'json',
                 success: function (ret) {
+                  self.img = img_uri
                   if (ret.data.status == '01') {
                     self.name = ret.data.name
                     self.IDcard = ret.data.idCard
@@ -170,7 +170,7 @@ export default {
                     })
                   } else {
                     prompt.showToast({
-                      message: ret.data.msg
+                      message: '验证失败'
                     })
                   }
                 },
@@ -179,7 +179,7 @@ export default {
                     message: '验证失败'
                   })
                 }
-              })*/
+              })
             }
           },
           fail: function(data, code) {
@@ -199,8 +199,9 @@ export default {
       uri: '/step3',
       params:{
         cookie:'cookie值，这里请服务器返回给我',
-        name: '廖志成',//this.name,
-        IDcard: '36252419990806****'//this.IDcard
+        name: this.name,
+        IDcard: this.IDcard,
+        IDcard2: this.IDcard
       }
     })
     
