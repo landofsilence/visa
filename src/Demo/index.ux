@@ -12,38 +12,38 @@
   </div>
   <div class="optcontain">
      <div class="countryType">
-       <image src="/Common/Japan.png" class="countryImg" id="japan" onclick="routeDetail"></image>
+       <image src="/Common/Japan.png" class="countryImg" id="japan" onclick="jumptocountry('日本')"></image>
        <text class="countryName">日本</text>
      </div>
      <div class="countryType">
-       <image src="/Common/France.png" class="countryImg" id="japan"></image>
+       <image src="/Common/France.png" class="countryImg" id="japan" onclick="jumptocountry('法国')"></image>
        <text class="countryName">法国</text>
      </div>
      <div class="countryType">
-       <image src="/Common/malaixiya.png" class="countryImg" id="japan"></image>
+       <image src="/Common/malaixiya.png" class="countryImg" id="japan" onclick="jumptocountry('马来西亚')"></image>
        <text class="countryName">马来西亚</text>
      </div>
      <div class="countryType"  style="margin-right: 0px">
-       <image src="/Common/singapore.png" class="countryImg" id="japan"></image>
+       <image src="/Common/singapore.png" class="countryImg" id="japan" onclick="jumptocountry('新加坡')"></image>
        <text class="countryName">新加坡</text>
      </div>
     
     </div>
         <div class="optcontain">
      <div class="countryType">
-       <image src="/Common/vietnam.png" class="countryImg" id="japan"></image>
+       <image src="/Common/vietnam.png" class="countryImg" id="japan" onclick="jumptocountry('越南')"></image>
        <text class="countryName">越南</text>
      </div>
      <div class="countryType">
-       <image src="/Common/Philippines.png" class="countryImg" id="japan" onclick="route4"></image>
+       <image src="/Common/Philippines.png" class="countryImg" id="japan" onclick="jumptocountry('菲律宾')"></image>
        <text class="countryName">菲律宾</text>
      </div>
      <div class="countryType">
-       <image src="/Common/tailand.png" class="countryImg" id="japan" onclick="route5"></image>
+       <image src="/Common/tailand.png" class="countryImg" id="japan" onclick="jumptocountry('泰国')"></image>
        <text class="countryName">泰国</text>
      </div>
      <div class="countryType"  style="margin-right: 0px">
-       <image src="/Common/Kampuchea.png" class="countryImg" id="japan"></image>
+       <image src="/Common/Kampuchea.png" class="countryImg" id="japan" onclick="jumptocountry('柬埔寨')"></image>
        <text class="countryName">柬埔寨</text>
      </div>
 
@@ -100,34 +100,7 @@ export default {
   search(){
     const self = this
     console.log('search start')
-    fetch.fetch({
-      url: 'http://120.78.141.62:8765/visa/country',
-      data:{
-        country: self.country
-      },
-      method: 'POST',
-      responseType: 'json',
-      success: function (ret) {
-        
-        console.log('fetch success')
-        if (ret.data.status == '0') {
-          router.push ({
-            uri: '/DemoDetail',
-            params:{
-              country: ret.data.name,
-              money: ret.data.currency,
-              exchange: ret.data.finance,
-              hotcity: ret.data.maincity,
-              flag:ret.data.nationalflag
-            }
-          })
-        } else {
-          prompt.showToast({
-                        message: ret.data.msg
-                  })
-        }
-      }
-      })
+    this.jumptocountry(this.country)
   },
 
   changetext(){
@@ -156,6 +129,37 @@ export default {
     this.$page.setTitleBar({text: '走呗签证'})
     this.lcList.push('onInit')
 
+  },
+
+  jumptocountry (country) {
+      fetch.fetch({
+      url: 'http://120.78.141.62:8765/visa/country',
+      data:{
+        country: country
+      },
+      method: 'POST',
+      responseType: 'json',
+      success: function (ret) {
+        
+        console.log('fetch success')
+        if (ret.data.status == '0') {
+          router.push ({
+            uri: '/DemoDetail',
+            params:{
+              country: ret.data.name,
+              money: ret.data.currency,
+              exchange: ret.data.finance,
+              hotcity: ret.data.maincity,
+              flag:ret.data.nationalflag
+            }
+          })
+        } else {
+          prompt.showToast({
+                        message: ret.data.msg
+                  })
+        }
+      }
+      })
   }
 
 

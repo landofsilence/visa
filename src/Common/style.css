@@ -107,6 +107,10 @@
     width: 112px;
     height: 74px;
   }
+  .countryflag{
+    border-color: #818181;
+    border-width: 1px;
+  }
 
   .tips{
     flex-direction: row;

@@ -52,7 +52,7 @@
    <div class="data {{showtype}}" style="margin-top:0px;">
      <image src="{{flag}}"  onclick='' class="imagebox" style="width:160px;" ></image>
      <div class="descripbox" style="margin-top:30px;">
-      <text class="descrip">货币单位：</text>
+      <text class="descrip" >货币单位：</text>
       <text class="content">{{money}}</text>
     </div>
      <div class="descripbox" style="margin-top:30px;">
@@ -60,7 +60,7 @@
       <text class="content">{{exchange}}</text>
     </div>
     <div class="descripbox" style="margin-top:30px;">
-      <text class="descrip">热门城市：</text>
+      <text class="descrip" style="width:210px">热门城市：</text>
       <text class="content">{{hotcity}}</text>
     </div>
     </div>
