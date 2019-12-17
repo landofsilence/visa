@@ -31,7 +31,7 @@
 
     <div class="descripbox" style="margin-top:60px;">
       <text class="descrip">签证国家：</text>
-      <text class="content">{{country}}</text>
+      <text class="content">日本</text>
     </div>
     <div class="descripbox">
       <text class="descrip">签证停留期：</text>
@@ -41,32 +41,7 @@
       <text class="descrip">签证有效期：</text>
       <text class="content">90天</text>
     </div>
-    
- <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
-     
-    <div class="tips" onclick="showorhide">
-    <image class="tipimage mydes" src="/Common/{{mystatus}}.png" ></image>
-    <text class="tiptext2line mydes lineheight" >点击查看{{country}}旅行攻略</text>
 
-  </div>
-   <div class="data {{showtype}}" style="margin-top:0px;">
-     <image src="{{flag}}"  onclick='' class="imagebox" style="width:160px;" ></image>
-     <div class="descripbox" style="margin-top:30px;">
-      <text class="descrip" >货币单位：</text>
-      <text class="content">{{money}}</text>
-    </div>
-     <div class="descripbox" style="margin-top:30px;">
-      <text class="descrip">今日汇率：</text>
-      <text class="content">{{exchange}}</text>
-    </div>
-    <div class="descripbox" style="margin-top:30px;">
-      <text class="descrip" style="width:210px">热门城市：</text>
-      <text class="content">{{hotcity}}</text>
-    </div>
-    </div>
-   <image style="background-color:#000000;height:2px;width:620px;margin-top:30px;"></image>
-
-   
     <text  class="descrip descripbox" >请输入您本人的手机号码，以验证申请：</text>
 
     <div class="phonebox">
@@ -86,7 +61,7 @@ import router from '@system.router'
 import fetch from '@system.fetch'
 import prompt from '@system.prompt'
 export default {
-  public: {
+  private: {
     text: '欢迎打开详情页',
     buttontype: 'btnfalse',
     action:'',
@@ -96,31 +71,8 @@ export default {
     disabled: 'true',
     codedisabled:'true',
     btntype:'btnfalse',
-    btntext:'获取验证',
-    mystatus:'down',
-    flag:'https://api.jisuapi.com/country/upload/nationalflag/218.jpg',
-    money:'日元',
-    exchange:'6.6',
-    hotcity:'东京',
-    showtype:'unsee',
-    country:'日本'
-
-    
-
+    btntext:'获取验证'
   },
-
-  showorhide(){
-    if(this.mystatus == 'down')
-      {
-        this.showtype=''
-        this.mystatus='up'
-      }else{
-        this.showtype='unsee'
-        this.mystatus='down'
-      }
-
-  },
-
   /**
    * 当用户点击菜单按钮时触发，调用app中定义的方法showMenu
    * 注意：使用加载器测试`创建桌面快捷方式`功能时，请先在`系统设置`中打开`应用加载器`的`桌面快捷方式`权限
