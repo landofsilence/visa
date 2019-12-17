@@ -198,9 +198,12 @@ export default {
   
   next () {
     // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
-    
+    const self = this
     router.replace ({
-      uri: '/step5'
+      uri: '/step5',
+      params:{
+        IDcard: this.IDcard
+      }
     })
   },
   takePhoto() {
@@ -264,7 +267,7 @@ imgHandle(img_uri){
             if (ret.code === 200) {
               console.log('ret.data = ' + ret.data)
               self.fresh(1)
-              /*fetch.fetch({
+              fetch.fetch({
                 url: 'http://120.78.141.62:8765/visa/ocrCommerceAccurate',
                 data: {
                   img: self.filename,
@@ -301,7 +304,7 @@ imgHandle(img_uri){
                     message: '验证失败'
                   })
                 }
-              })*/
+              })
             }
           },
           fail: function(data, code) {

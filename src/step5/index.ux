@@ -101,7 +101,9 @@ export default {
   public: {
     minute:2,
     second:59,
-    returnId: ''
+    returnId: '',
+    name:'',
+    IDcard:''
   },
   appPay () {
     const self = this

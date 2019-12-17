@@ -150,7 +150,7 @@ export default {
             console.log('upload success')
             if (ret.code === 200) {
               self.fresh()
-              /*fetch.fetch({
+              fetch.fetch({
                 url: 'http://120.78.141.62:8765/visa/img2base64',
                 data: {
                   img: self.filename,
@@ -179,7 +179,7 @@ export default {
                     message: '验证失败'
                   })
                 }
-              })*/
+              })
             }
           },
           fail: function(data, code) {
@@ -199,8 +199,9 @@ export default {
       uri: '/step3',
       params:{
         cookie:'cookie值，这里请服务器返回给我',
-        name: '廖志成',//this.name,
-        IDcard: '36252419990806****'//this.IDcard
+        name: this.name,
+        IDcard: this.IDcard,
+        IDcard2: this.IDcard
       }
     })
     
