@@ -248,6 +248,7 @@ export default {
   },
 imgHandle(img_uri){
     const self = this
+    self.img = '/Common/load.gif'
     image.compressImage({
       uri: img_uri,
       success: function (data) {
