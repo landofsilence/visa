@@ -266,7 +266,6 @@ imgHandle(img_uri){
             console.log('upload success')
             if (ret.code === 200) {
               console.log('ret.data = ' + ret.data)
-              self.fresh(1)
               fetch.fetch({
                 url: 'http://120.78.141.62:8765/visa/ocrCommerceAccurate',
                 data: {
@@ -295,7 +294,7 @@ imgHandle(img_uri){
                     })
                   } else {
                     prompt.showToast({
-                      message: ret.data.msg
+                      message: '验证失败'
                     })
                   }
                 },
