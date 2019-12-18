@@ -147,7 +147,6 @@ export default {
             }
           ],
           success: function (ret) {
-            self.img = img_uri
             console.log('upload success')
             if (ret.code === 200) {
               //self.fresh()
@@ -160,6 +159,7 @@ export default {
                 responseType: 'json',
                 success: function (ret) {
                   if (ret.data.status == '01') {
+                    self.img = img_uri
                     self.name = ret.data.name
                     self.IDcard = ret.data.idCard
                     self.sex = ret.data.sex
