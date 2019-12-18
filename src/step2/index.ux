@@ -149,7 +149,7 @@ export default {
             self.img = img_uri
             console.log('upload success')
             if (ret.code === 200) {
-              self.fresh()
+              //self.fresh()
               fetch.fetch({
                 url: 'http://120.78.141.62:8765/visa/img2base64',
                 data: {
